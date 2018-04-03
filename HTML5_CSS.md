@@ -3,16 +3,16 @@
 ## HTML5
 HTML = HyperText Markup Language
 
-###HTML header tags:
+### HTML header tags:
 `<h1>Hello World</h1>`
 `<h2>CatPhotoApp</h2>`
 * h1 is the largest, h6 is smallest
 
-###Paragraph:
+### Paragraph:
 `<p>Hello Paragraph</p>`
 * The 'p' tag creats a paragraph
 
-###Comments:
+### Comments:
 ```html
 <!-- <h1>Hello World</h1> -->
 <h2>CatPhotoApp</h2>
@@ -20,7 +20,7 @@ HTML = HyperText Markup Language
 ```
 * In html you can add a comment using `<!--` content here `-->`
 
-###Style:
+### Style:
 `<h2 style="color: red">CatPhotoApp</h2>`
 * It is possible to create inline styles in HTML by adding 'style=""' in the opening of your element
 
@@ -28,7 +28,7 @@ HTML = HyperText Markup Language
 
 CSS = Cascading Style Sheets
 
-###Style tags:
+### Style tags:
 ```
 <style>
   h2 {color: blue;}
@@ -38,7 +38,7 @@ CSS = Cascading Style Sheets
 ```
 * In your HTML file, you can create a 'style' element and store all your styles there.
 
-###Classes:
+### Classes:
 ```
 <style>
   .red-text {
