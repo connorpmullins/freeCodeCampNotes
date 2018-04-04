@@ -115,4 +115,163 @@ function confirmEnding(str, target) {
 confirmEnding("Bastian", "n");
 // returns true
 ```
-* end
+* This function takes two arguments and checks if the last character in a string matches the second argument
+* It does this with str.substr, which allows you to select a substring by its negative index (how far back from the end it is)
+* We take the substring equal to the length of the second argument and check if they're the same
+
+### Repeat a String Repeat a string
+```javascript
+function repeatStringNumTimes(str, num) {
+  var str2 = "";
+  for (var j = 0; j < num; j++) {
+    str2 = str2.concat(str);
+  }
+  return str2;
+}
+
+repeatStringNumTimes("abc", 3);
+// returns 'abcabcabc'
+```
+* This function returns a new string equal to the original string repeated a specified number of times
+* We do this by concatinating the original string onto the new string while var j is less than the number passed to the function
+
+### Truncate a String
+```javascript
+function truncateString(str, num) {
+  if (str.length > num && num > 3) {
+    str = str.slice(0, num-3) + "...";
+  } else if (num < 3) {
+    str = str.slice(0, num) + "...";
+  }
+  return str;
+}
+
+truncateString("A-tisket a-tasket A green and yellow basket", 11);
+// returns "A-tisket..."
+```
+* This function checks if a string is greater than a given number and then shortens the string so that it + '...' is shorter than the number
+* EXCEPTION - if the number given is 3 or less, the '...' don't count in its length
+* If does this by setting the string equal to a slice of the string starting at the 0th index through the num-3 (or num if num < 3), adding '...', and returning the string
+
+### Chunky Monkey (Chunking Arrays)
+```javascript
+function chunkArrayInGroups(arr, size) {
+  var new_arr = [];
+  for (var j = 0; j < arr.length; j += size) {
+   new_arr.push(arr.slice(j, size+j));
+  }
+  return new_arr;
+}
+
+chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 4);
+// returns [[0,1,2,3],[4,5,6,7],[8]]
+```
+* This function takes two arguments, an array and a size to 'chunk' it into
+* Declares new array and iterates through the old array, pushing slices of the array from 'j' index to j + 'size' (the size of our chunks)
+* The trick here is not iterating by 1, but by the second argument in the for loop
+
+### Slasher Flick
+```javascript
+function slasher(arr, howMany) {
+  return arr.splice(howMany);
+}
+
+slasher([1, 2, 3], 2);
+// returns [3]
+```
+* Returns remaining elements of an array after chopping off 'n' elements from the head
+* Pretty simple, just makes use of splice, which returns a new array staring 'howMany' items from the start
+
+### Mutations
+```javascript
+function mutation(arr) {
+  let [a, b] = arr.map(x=>x.toLowerCase());
+  let x = [...b].filter(x => a.search(x) !== -1 ? true : false);
+  return x.length == arr[1].length ? true : false;
+}
+
+mutation(["HELLO", "hello"]);
+// returns true
+```
+* Returns true if the string in the first element of the array contains all of the letters of the string in the second array element
+* Function delcares a new array = the argument made lowercase (prevents false negatives from uppercase)
+* It then declares var x and sets it equal to the elements of the arr[b] that have an equivalent in arr[a]
+  * It iterates through b using a 'spread operator'
+* Finally, if checks if the length of x is = arr[a].length
+  * If it is, then all letters returned 'true' in the filter step, and all letters are present
+
+### Falsy Bouncer
+```javascript
+bouncer = arr => {
+  let new_arr = arr.filter(Boolean);
+  return new_arr;
+};
+
+bouncer([7, "ate", "", false, 9]);
+// returns [7, "ate", 9]
+```
+* Simple function that returns a new array equal to the old array filtered for any values that are falsy
+* Just used filter to remove any values that dont return true in a boolean equation
+
+### Seek and Destroy
+```javascript
+function destroyer() {
+  const args = Array.from(arguments);
+  var set = new Set(args.slice(1));
+  return args[0].filter(x => !(set.has(x)));
+}
+
+destroyer([1, 2, 3, 1, 2, 3], 2, 3);
+// returns [1, 1]
+```
+* Given an array and arguments, return the array with arguments removed
+* Creates an array (args) containing the original array and the other arguments => [[1, 2, 3, 1, 2, 3], 2, 3]
+* Creates a variable equal to args minus the array we're checking arguments against (i.e. var set = what we want to remove from array)
+* Returns the array with anything from the var we created filtered out
+
+### Where Do I Belong
+```javascript
+function getIndexToIns(arr, num) {
+  // r_s = running sum
+  return arr.reduce((r_s, val) => r_s + (val < num ? 1 : 0) , 0);
+}
+
+getIndexToIns([2, 5, 10], 15);
+// returns 3
+```
+* Function returns the lowest index at which a value should be inserted into an array once sorted
+* Makes use of arr.reduce to iterate through the function, adding 1 or 0 to r_s depending on if the value of the arr at any index is less than the number we're trying to place
+* This will return a number equal to the index the number should be added to the array
+
+Caesar's Cipher
+```javascript
+function rot13(str) { // LBH QVQ VG!
+
+  let new_str = "";
+
+  for (let x = 0; x < str.length; x++) {
+    if (/[A-Z]/.test(str.charAt(x))) {
+      if (str.charCodeAt(x) < 78) {
+        new_str += String.fromCharCode(str.charCodeAt(x)+13);
+      } else {
+        new_str += String.fromCharCode(str.charCodeAt(x)-13);
+      }
+    } else {
+      new_str += str.charAt(x);
+    }
+  } return new_str;
+}
+```
+* This function takes a string that has been run through a caesar cipher and unciphers it.
+  * https://en.wikipedia.org/wiki/ROT13
+* Declares a new string and then iterates through the old string
+* While running through old string, it tests each character. If the character is a letter, it checks what its charCode (unicode representation of a letter) is
+* If charCode is less than 78 ('N'), it adds 13 to the charcode and pushes that new character onto the new string
+* If charCode is greater than 78 (N), it subtracts 13 and adds that to new string
+* If character is not a letter, it passes it as is to the new string
+
+
+
+
+
+
