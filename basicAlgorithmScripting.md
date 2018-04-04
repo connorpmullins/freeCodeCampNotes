@@ -243,7 +243,7 @@ getIndexToIns([2, 5, 10], 15);
 * Makes use of arr.reduce to iterate through the function, adding 1 or 0 to r_s depending on if the value of the arr at any index is less than the number we're trying to place
 * This will return a number equal to the index the number should be added to the array
 
-Caesar's Cipher
+### Caesar's Cipher
 ```javascript
 function rot13(str) { // LBH QVQ VG!
 
